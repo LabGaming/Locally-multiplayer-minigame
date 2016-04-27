@@ -559,6 +559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boundsCollider: {fileID: 1067782958}
   goToInstantiate: {fileID: 108812, guid: 304b3384d8db2d640a64598bddf079ff, type: 2}
+  cowToInstantiate: {fileID: 160210, guid: affd87861cf91ac4dae9f1023a935e95, type: 2}
   timePerRound: 30
   gameTimer: {fileID: 1620613500}
 --- !u!4 &322957736
