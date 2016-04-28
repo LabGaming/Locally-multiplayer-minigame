@@ -35,7 +35,7 @@ public class Instantiator : MonoBehaviour {
 		//Vector3 position = new Vector3 (x, y, z);
 
 		GameObject.Instantiate (cowToInstantiate, position, transform.rotation);
-		var numberofObjects = 50;
+		var numberofObjects = 10;
 		var radius = 1f;
 		for (int i = 0; i < numberofObjects; i++) {
 			float angle = i * Mathf.PI * 2 / numberofObjects;
@@ -60,8 +60,8 @@ public class Instantiator : MonoBehaviour {
 	}
 
 	private Vector3 VectorDisplacement(){
-		var x = Random.Range (-1f, 5f);
-		var y = Random.Range (-1f, 5f);
+		var x = Random.Range (-1f, 6f);
+		var y = Random.Range (-1f, 6f);
 		return new Vector3 (x, y, 0);
 	}
 
