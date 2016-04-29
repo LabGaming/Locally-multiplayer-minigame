@@ -4,8 +4,6 @@ using System.Collections;
 public class Vision : MonoBehaviour {
 
 	private Collider2D vision;
-	public Material light;
-	public Material dark;
 
 
 	// Use this for initialization
@@ -15,13 +13,13 @@ public class Vision : MonoBehaviour {
 	
 	void OnTriggerStay2D (Collider2D other){
 		if (other.tag == "Item") {
-			other.transform.GetComponent<SpriteRenderer> ().material.color = Color.white;
+			other.transform.GetComponent<SpriteRenderer> ().material.color = Color.Lerp(Color.black, Color.white, 1f);
 		}
 	}
 
 	void OnTriggerExit2D (Collider2D other){
 		if (other.tag == "Item") {
-			other.transform.GetComponent<SpriteRenderer> ().material.color = Color.black;
+			other.transform.GetComponent<SpriteRenderer> ().material.color = Color.Lerp(Color.white, Color.black, 1f);
 		}
 	}
 }
