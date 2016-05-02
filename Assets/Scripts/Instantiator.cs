@@ -6,6 +6,7 @@ public class Instantiator : MonoBehaviour {
 	public BoxCollider2D boundsCollider;
 	public GameObject goToInstantiate;
 	public GameObject cowToInstantiate;
+	public GameObject[] powerups;
 	private Bounds bounds;
 	int i = 0;
 
@@ -20,6 +21,7 @@ public class Instantiator : MonoBehaviour {
 		bounds.SetMinMax (boundsCollider.bounds.min, boundsCollider.bounds.max);
 		Time.timeScale = 0f;
 		placeGems ();
+		InvokeRepeating ("GenerateItemBox", 0f, 2f);
 	}
 
 	void Update () {
@@ -28,14 +30,14 @@ public class Instantiator : MonoBehaviour {
 			Time.timeScale = 0f;
 		}
 		//si no intersecta
-		if (!bounds.Intersects (player.GetComponent<BoxCollider2D> ().bounds)) {
+		/*if (!bounds.Intersects (player.GetComponent<BoxCollider2D> ().bounds)) {
 			Vector3 targetPos = player.transform.position + new Vector3 (0f, 0f, -1f); 
 			cam.transform.position = Vector3.Lerp (cam.transform.position, targetPos, 0.5f);
 			
 		} else {
 			//reset position
 			cam.transform.position = new Vector3(12.5f, 5f, -0.5f);
-		}
+		}*/
 	}
 
 	public void placeGems() {
@@ -60,6 +62,13 @@ public class Instantiator : MonoBehaviour {
 			Vector3 position = new Vector3 (x, y, z);
 			GameObject.Instantiate (goToInstantiate, position, transform.rotation);
 		}		*/
+	}
+
+	void GenerateItemBox(){
+		Vector3 position = RandomVector ();
+		float randomNum=Random.Range (0f, 1f);
+		GameObject.Instantiate (powerups[1], position, transform.rotation);
+
 	}
 
 	private Vector3 RandomVector() {
