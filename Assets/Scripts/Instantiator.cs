@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Instantiator : MonoBehaviour {
 
+	//singleton instance
+	private static Instantiator instance = null;
+
 	public BoxCollider2D boundsCollider;
 	public GameObject goToInstantiate;
 	public GameObject cowToInstantiate;
@@ -16,12 +19,35 @@ public class Instantiator : MonoBehaviour {
 	public GameObject player;
 	public Camera cam;
 
+	public GameObject mysteriousBox;
+
+
+
+	// This defines a static instance property that attempts to find the manager object in the scene and
+	// returns it to the caller.
+	public static Instantiator Instance {
+		get {
+			if (instance == null) {
+				//  FindObjectOfType(...) returns the first AManager object in the scene.
+				instance =  FindObjectOfType(typeof (Instantiator)) as Instantiator;
+			}
+
+			// If it is still null, create a new instance
+			if (instance == null) {
+				GameObject obj = new GameObject("Instantiator");
+				instance = obj.AddComponent(typeof (Instantiator)) as Instantiator;
+				Debug.Log ("Could not locate an Instantiator object. Instantiator was Generated Automaticly.");
+			}
+			return instance;
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		bounds.SetMinMax (boundsCollider.bounds.min, boundsCollider.bounds.max);
 		Time.timeScale = 0f;
 		placeGems ();
-		InvokeRepeating ("GenerateItemBox", 0f, 2f);
+		InvokeRepeating ("GenerateMysteriousBox", 0f, 2f);
 	}
 
 	void Update () {
@@ -64,11 +90,9 @@ public class Instantiator : MonoBehaviour {
 		}		*/
 	}
 
-	void GenerateItemBox(){
+	void GenerateMysteriousBox(){
 		Vector3 position = RandomVector ();
-		float randomNum=Random.Range (0f, 1f);
-		GameObject.Instantiate (powerups[1], position, transform.rotation);
-
+		GameObject.Instantiate (mysteriousBox, position, transform.rotation);
 	}
 
 	private Vector3 RandomVector() {
@@ -82,6 +106,11 @@ public class Instantiator : MonoBehaviour {
 		var x = Random.Range (-1f, 6f);
 		var y = Random.Range (-1f, 6f);
 		return new Vector3 (x, y, 0);
+	}
+
+	public GameObject GenerateRandomItem(){
+		var powerUpIndex = (int) Random.Range (0f, powerups.Length);
+		return powerups [powerUpIndex];
 	}
 
 
