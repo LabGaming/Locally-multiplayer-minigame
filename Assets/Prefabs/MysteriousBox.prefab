@@ -83,7 +83,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131192}
   serializedVersion: 2
-  lengthInSec: 3
+  lengthInSec: 1
   startDelay:
     scalar: 0
     maxCurve:

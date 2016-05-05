@@ -13,6 +13,11 @@ public class MysteriousItem : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		//setear el item al jugador de alguna forma
+		if (other.gameObject.tag == "Player") {
+
+			//setear el item al jugador de alguna forma
+			other.transform.GetComponent<PlayerActions>().CatchItem(content);
+			GameObject.Destroy (this.gameObject);
+		}
 	}
 }

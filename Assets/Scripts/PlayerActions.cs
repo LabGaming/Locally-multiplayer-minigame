@@ -4,26 +4,10 @@ using System.Collections;
 
 public class PlayerActions : MonoBehaviour {
 
-	public GameObject gameManager;
+	public GameObject powerUp;
 
-	public void CatchItem(int points){
-		gameManager.GetComponent<ScorePoints> ().setplayer1Points (points);
-	}
-
-	public void PowerupSpeed() {
-		StartCoroutine (SpeedRoutine());
-	}
-
-	public void PowerupIce() {
-		StartCoroutine (IceRoutine());
-	}
-
-	IEnumerator SpeedRoutine(){
-		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (10f);
-		print (Time.time);
-		yield return new WaitForSeconds (4f);
-		print (Time.time);
-		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (5f);
+	public void CatchItem(GameObject content){
+		powerUp = content;
 	}
 
 	IEnumerator BombRoutine(){
@@ -33,15 +17,10 @@ public class PlayerActions : MonoBehaviour {
 		return null;
 	}
 
-	IEnumerator IceRoutine(){
-		//TODO
-		//tirar objeto
-		//cuando pega bajar velocidad a 0 del objetivo durante 2 segs
-		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (2f);
-		print (Time.time);
-		yield return new WaitForSeconds (3f);
-		print (Time.time);
-		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (5f);
+
+
+	public void UsePowerUp(){
+
 	}
 
 }

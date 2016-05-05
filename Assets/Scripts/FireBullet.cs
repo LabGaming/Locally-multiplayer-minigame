@@ -20,6 +20,9 @@ public class FireBullet : MonoBehaviour {
 
 		if (playerNumber == 1 && Input.GetAxisRaw ("Fire1") > 0 && nextBulletTime < Time.time) {
 			nextBulletTime = Time.time + timeBetweenBullets;
+
+			transform.GetComponentInParent<PlayerActions> ().UsePowerUp ();
+
 			Vector2 rot = new Vector2 (0, 0);
 			Object response = Instantiate(proyectile, gameObject.transform.position, Quaternion.Euler (rot));
 			Rigidbody2D bulletRB = (response as GameObject).GetComponent<Rigidbody2D> ();

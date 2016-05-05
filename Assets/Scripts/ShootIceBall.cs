@@ -22,6 +22,22 @@ public class ShootIceBall : MonoBehaviour {
 	
 	}
 
+	public void Effect(){
+		StartCoroutine (IceRoutine());
+	}
+
+	IEnumerator IceRoutine(){
+		//TODO
+		//tirar objeto
+		//cuando pega bajar velocidad a 0 del objetivo durante 2 segs
+		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (2f);
+		print (Time.time);
+		yield return new WaitForSeconds (3f);
+		print (Time.time);
+		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (5f);
+	}
+
+	//para cuando ya es lanzado y choca algo
 	void OnTriggerEnter2D(Collider2D other) {
 		Debug.Log("ontriggerenter ice");
 		if (other.gameObject.layer == LayerMask.NameToLayer ("Shootable")) {
