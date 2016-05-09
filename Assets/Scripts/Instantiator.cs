@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets._2D;
 
 public class Instantiator : MonoBehaviour {
 
@@ -46,14 +47,15 @@ public class Instantiator : MonoBehaviour {
 	void Start () {
 		bounds.SetMinMax (boundsCollider.bounds.min, boundsCollider.bounds.max);
 		Time.timeScale = 0f;
-		placeGems ();
-		InvokeRepeating ("GenerateMysteriousBox", 0f, 2f);
+		//placeGems ();
+		//InvokeRepeating ("GenerateMysteriousBox", 0f, 4f);
 	}
 
 	void Update () {
 
 		if (gameTimer.getActualTime () >= timePerRound) {
 			Time.timeScale = 0f;
+			CanvasManager.Instance.ShowMainMenuPanel (true);
 		}
 		//si no intersecta
 		/*if (!bounds.Intersects (player.GetComponent<BoxCollider2D> ().bounds)) {
@@ -113,5 +115,85 @@ public class Instantiator : MonoBehaviour {
 		return powerups [powerUpIndex];
 	}
 
+
+	//--------------
+	public delegate IEnumerator PowerUpEffect();
+	public event PowerUpEffect PowerUpEvent;
+	public event PowerUpEffect PowerUpEventP2;
+
+	public void PlayPUEffectPlayer1(){
+		if (PowerUpEvent != null) {
+			StartCoroutine (PowerUpEvent ());
+			PowerUpEvent = null;
+		}
+	}
+
+	public void PlayPUEffectPlayer2(){
+		if (PowerUpEventP2 != null) {
+			StartCoroutine (PowerUpEventP2 ());
+			PowerUpEventP2 = null;
+		}
+	}
+
+	public void SetSpeedPUEvent(PlayerActions playerActions){
+		//ver como solucionar que target es el correcto
+		if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 1) {
+			PowerUpEvent = playerActions.SpeedRoutine;
+		} else if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 2) {
+			PowerUpEventP2 = playerActions.SpeedRoutine;
+		}
+	}
+
+	/*
+	public IEnumerator SpeedRoutine(){
+		PowerUpEvent -= SpeedRoutine;
+		player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (10f);
+		print ("PU-speed init"+ Time.time);
+		yield return new WaitForSeconds (4f);
+		print ("PU-speed init"+ Time.time);
+		player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (5f);
+	}*/
+
+	public void SetIceBallPUEvent(PlayerActions playerActions){
+		if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 1) {
+			PowerUpEvent = playerActions.IceBallRoutine;
+		} else if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 2) {
+			PowerUpEventP2 = playerActions.IceBallRoutine;
+		}
+	}
+
+	//deprecated
+	public IEnumerator IceBallRoutine(){
+
+		Vector2 rot = new Vector2 (0, 0);
+		GameObject proyectil = powerups [1];
+		Transform proyectilTransform = player.transform.FindChild ("Proyector").transform;
+		Object response = Instantiate(proyectil, proyectilTransform.position, Quaternion.Euler (rot));
+		(response as GameObject).GetComponent<SpriteRenderer> ().enabled = true;
+		Rigidbody2D bulletRB = (response as GameObject).GetComponent<Rigidbody2D> ();
+		float speed = (response as GameObject).GetComponent<IceBallPowerUp> ().getSpeed ();
+		if (player.transform.localScale.x > 0) {
+			bulletRB.AddForce (Vector2.right * speed, ForceMode2D.Impulse);
+
+		} else {
+			bulletRB.AddForce (Vector2.right * -speed, ForceMode2D.Impulse);
+		}
+		yield return null;
+	}
+
+	public void Freeze(GameObject player){
+		StartCoroutine (FreezeRoutine(player));
+	}
+
+	IEnumerator FreezeRoutine(GameObject player){
+		//TODO
+		//tirar objeto
+		//cuando pega bajar velocidad a 0 del objetivo durante 2 segs
+		player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (2f);
+		print ("PU-Ice"+Time.time);
+		yield return new WaitForSeconds (3f);
+		print ("PU-Ice"+Time.time);
+		player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (5f);
+	}
 
 }

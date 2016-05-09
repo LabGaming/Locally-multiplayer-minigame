@@ -1,44 +1,45 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &141480
+--- !u!1 &137858
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 466386}
-  - 114: {fileID: 11441938}
+  - 4: {fileID: 468102}
+  - 114: {fileID: 11441704}
   m_Layer: 0
-  m_Name: Speed-powerup
+  m_Name: Ice- powerup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &466386
+--- !u!4 &468102
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 141480}
+  m_GameObject: {fileID: 137858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 20.04, y: 5.008038, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11441938
+--- !u!114 &11441704
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 141480}
+  m_GameObject: {fileID: 137858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b27287fc66b742f449bdd12389084b93, type: 3}
+  m_Script: {fileID: 11500000, guid: 73231005a4321cc4f9dd638d6a50021f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  proyectile: {fileID: 168264, guid: 022f4efb7b4b6fd44a783ce67840224c, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -48,5 +49,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 141480}
+  m_RootGameObject: {fileID: 137858}
   m_IsPrefabParent: 1

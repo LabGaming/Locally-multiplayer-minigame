@@ -1,26 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpeedPowerup : MonoBehaviour {
+public class SpeedPowerup : PowerUp {
 
-	public void Effect(){
-		StartCoroutine (SpeedRoutine());
+	public override void Effect(PlayerActions affected){
+		//Set effect event for "affected" player
+		Instantiator.Instance.SetSpeedPUEvent (affected);
+
+		affected.activePowerUp = this.gameObject;
+		//Destroy (this.gameObject);
 	}
 
-	IEnumerator SpeedRoutine(){
-		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (10f);
-		print (Time.time);
-		yield return new WaitForSeconds (4f);
-		print (Time.time);
-		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (5f);
-	}
-
-	/*
-	void OnCollisionEnter2D(Collision2D other)
-	{
-		if (other.gameObject.tag == "Player") {
-			other.gameObject.SendMessage ("PowerupSpeed");
-			GameObject.Destroy (this.gameObject);
-		}
-	}*
 }
