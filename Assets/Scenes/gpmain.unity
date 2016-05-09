@@ -2059,7 +2059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bd283b82c69f44395607cbdc63c360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTime: 5
+  delayTime: 3
   nextScene: 0
   nextView: {fileID: 986815311}
 --- !u!114 &1755652025

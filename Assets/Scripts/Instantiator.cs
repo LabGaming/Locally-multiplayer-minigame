@@ -47,8 +47,8 @@ public class Instantiator : MonoBehaviour {
 	void Start () {
 		bounds.SetMinMax (boundsCollider.bounds.min, boundsCollider.bounds.max);
 		Time.timeScale = 0f;
-		//placeGems ();
-		//InvokeRepeating ("GenerateMysteriousBox", 0f, 4f);
+		placeGems (10);
+		InvokeRepeating ("GenerateMysteriousBox", 0f, 4f);
 	}
 
 	void Update () {
@@ -68,28 +68,24 @@ public class Instantiator : MonoBehaviour {
 		}*/
 	}
 
-	public void placeGems() {
+	public void placeGems(int numberofObjects) {
 		
 		Vector3 position = RandomVector ();
 		//Vector3 position = new Vector3 (x, y, z);
 
 		GameObject.Instantiate (cowToInstantiate, position, transform.rotation);
-		var numberofObjects = 10;
-		var radius = 1f;
+		var radius = 4f;
+		Vector3 pos;
 		for (int i = 0; i < numberofObjects; i++) {
+			pos =bounds.max + new Vector3 (9f, 9f, 9f);
 			float angle = i * Mathf.PI * 2 / numberofObjects;
-			Vector3 pos = new Vector3 (Mathf.Cos (angle), Mathf.Sin (angle), 0) * radius + position + VectorDisplacement();
+			while (!bounds.Contains (pos)) {
+				Debug.Log ("!");
+				pos = new Vector3 (Mathf.Cos (angle), Mathf.Sin (angle), 0) 
+					* radius + position + VectorDisplacement (radius);
+			}
 			GameObject.Instantiate (goToInstantiate, pos, Quaternion.identity);
-			//checkear que no se instancie fuera de los bordes
 		}
-		/*while(i<9){
-			i++;
-			var x = Random.Range (position.x, boundMax.x);
-			var y = Random.Range (boundMin.y, boundMax.y);
-			var z = Random.Range (boundMin.z, boundMax.z);
-			Vector3 position = new Vector3 (x, y, z);
-			GameObject.Instantiate (goToInstantiate, position, transform.rotation);
-		}		*/
 	}
 
 	void GenerateMysteriousBox(){
@@ -104,9 +100,9 @@ public class Instantiator : MonoBehaviour {
 		return new Vector3 (x, y, z);
 	}
 
-	private Vector3 VectorDisplacement() {
-		var x = Random.Range (-1f, 6f);
-		var y = Random.Range (-1f, 6f);
+	private Vector3 VectorDisplacement(float radius) {
+		var x = Random.Range (-(radius+1), radius+1);
+		var y = Random.Range (-(radius+1), (radius+1));
 		return new Vector3 (x, y, 0);
 	}
 
