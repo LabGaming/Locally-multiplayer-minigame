@@ -7,5 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/gpmain.unity
+  - enabled: 0
+    path: Assets/Scenes/gp1.unity
   - enabled: 1
-    path: Assets/Scenes/test1.unity
+    path: Assets/Scenes/minitoto1.unity

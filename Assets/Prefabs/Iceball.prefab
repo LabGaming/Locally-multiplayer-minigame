@@ -26,7 +26,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 410668}
-  - 50: {fileID: 5072036}
+  - 50: {fileID: 5051034}
   m_Layer: 0
   m_Name: Iceball
   m_TagString: Untagged
@@ -59,7 +59,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 410668}
   m_RootOrder: 0
---- !u!50 &5072036
+--- !u!50 &5051034
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1
@@ -72,7 +72,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
-  speed: 5
+  speed: 9
 --- !u!212 &21200876
 SpriteRenderer:
   m_ObjectHideFlags: 1
