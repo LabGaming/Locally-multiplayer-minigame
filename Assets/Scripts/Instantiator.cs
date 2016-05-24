@@ -17,12 +17,12 @@ public class Instantiator : MonoBehaviour {
 	public float timePerRound;
 	public Timer gameTimer;
 
-	public GameObject player;
+	public GameObject[] players;
+
 	public Camera cam;
 
 	public GameObject mysteriousBox;
-
-
+	private WaypointController waypointController;
 
 	// This defines a static instance property that attempts to find the manager object in the scene and
 	// returns it to the caller.
@@ -43,10 +43,16 @@ public class Instantiator : MonoBehaviour {
 		}
 	}
 
+	void Awake(){
+		players = new GameObject[3];
+		DontDestroyOnLoad (transform.gameObject);
+	}
+
 	// Use this for initialization
 	void Start () {
 		bounds.SetMinMax (boundsCollider.bounds.min, boundsCollider.bounds.max);
 		Time.timeScale = 0f;
+		waypointController = GameObject.Find ("Waypoints").GetComponent<WaypointController> ();
 		placeGems (10);
 		InvokeRepeating ("GenerateMysteriousBox", 0f, 4f);
 	}
@@ -119,6 +125,7 @@ public class Instantiator : MonoBehaviour {
 
 	public void PlayPUEffectPlayer1(){
 		if (PowerUpEvent != null) {
+			Debug.Log ("puEffect");
 			StartCoroutine (PowerUpEvent ());
 			PowerUpEvent = null;
 		}
@@ -133,34 +140,51 @@ public class Instantiator : MonoBehaviour {
 
 	public void SetSpeedPUEvent(PlayerActions playerActions){
 		//ver como solucionar que target es el correcto
-		if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 1) {
+		/*if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 1) {
 			PowerUpEvent = playerActions.SpeedRoutine;
 		} else if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 2) {
+			PowerUpEventP2 = playerActions.SpeedRoutine;
+		}*/
+		if (playerActions.gameObject.GetComponent<PlayerActions> ().getPlayerNumber () == 1) {
+			PowerUpEvent = playerActions.SpeedRoutine;
+		} else if (playerActions.gameObject.GetComponent<PlayerActions> ().getPlayerNumber () == 2) {
 			PowerUpEventP2 = playerActions.SpeedRoutine;
 		}
 	}
 
-	/*
+	//deprecated
 	public IEnumerator SpeedRoutine(){
 		PowerUpEvent -= SpeedRoutine;
-		player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (10f);
+		/*player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (10f);
 		print ("PU-speed init"+ Time.time);
 		yield return new WaitForSeconds (4f);
 		print ("PU-speed init"+ Time.time);
 		player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (5f);
-	}*/
+		
+		player.GetComponent<PlatformerMotor2D> ().groundSpeed = 40;
+		print ("PU-speed init"+ Time.time);
+		yield return new WaitForSeconds (4f);
+		print ("PU-speed init"+ Time.time);
+		player.GetComponent<PlatformerMotor2D> ().groundSpeed = 8;*/
+		yield return null;
+	}
 
 	public void SetIceBallPUEvent(PlayerActions playerActions){
-		if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 1) {
+		/*if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 1) {
 			PowerUpEvent = playerActions.IceBallRoutine;
 		} else if (playerActions.gameObject.GetComponent<Platformer2DUserControl> ().getPlayerNumber () == 2) {
+			PowerUpEventP2 = playerActions.IceBallRoutine;
+		}*/
+		if (playerActions.gameObject.GetComponent<PlayerActions> ().getPlayerNumber () == 1) {
+			PowerUpEvent = playerActions.IceBallRoutine;
+		} else if (playerActions.gameObject.GetComponent<PlayerActions> ().getPlayerNumber () == 2) {
 			PowerUpEventP2 = playerActions.IceBallRoutine;
 		}
 	}
 
 	//deprecated
 	public IEnumerator IceBallRoutine(){
-
+		/*
 		Vector2 rot = new Vector2 (0, 0);
 		GameObject proyectil = powerups [1];
 		Transform proyectilTransform = player.transform.FindChild ("Proyector").transform;
@@ -173,7 +197,7 @@ public class Instantiator : MonoBehaviour {
 
 		} else {
 			bulletRB.AddForce (Vector2.right * -speed, ForceMode2D.Impulse);
-		}
+		}*/
 		yield return null;
 	}
 
@@ -185,11 +209,16 @@ public class Instantiator : MonoBehaviour {
 		//TODO
 		//tirar objeto
 		//cuando pega bajar velocidad a 0 del objetivo durante 2 segs
-		player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (2f);
+		/*player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (2f);
 		print ("PU-Ice"+Time.time);
 		yield return new WaitForSeconds (3f);
 		print ("PU-Ice"+Time.time);
-		player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (5f);
+		player.GetComponent<PlatformerCharacter2D> ().setMaxSpeed (5f);*/
+		player.GetComponent<PlatformerMotor2D> ().groundSpeed = 2;
+		print ("PU-Ice"+Time.time);
+		yield return new WaitForSeconds (3f);
+		print ("PU-Ice"+Time.time);
+		player.GetComponent<PlatformerMotor2D> ().groundSpeed = 8;
 	}
 
 }

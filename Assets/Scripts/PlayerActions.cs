@@ -5,6 +5,13 @@ using System.Collections;
 public class PlayerActions : MonoBehaviour {
 
 	public GameObject activePowerUp;
+	public int playerNumber;
+
+	public PlayerInput inputConfig;
+
+	void Start(){
+		inputConfig = new PlayerInput (playerNumber);
+	}
 
 	//TODO
 /*	public void CatchItem(PowerUp content){
@@ -21,6 +28,14 @@ public class PlayerActions : MonoBehaviour {
 		}
 	}*/
 
+	public int getPlayerNumber(){
+		return playerNumber;
+	}
+
+	public void setPlayerNumber(int number){
+		playerNumber = number;
+	}
+
 	//Routines
 	IEnumerator BombRoutine(){
 		//TODO
@@ -31,11 +46,17 @@ public class PlayerActions : MonoBehaviour {
 
 	public IEnumerator SpeedRoutine(){
 		
-		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (10f);
+		/*gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (10f);
 		print ("PU-speed init"+ Time.time);
 		yield return new WaitForSeconds (4f);
 		print ("PU-speed init"+ Time.time);
-		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (5f);
+		gameObject.GetComponentInParent<PlatformerCharacter2D> ().setMaxSpeed (5f);*/
+		gameObject.GetComponentInParent<PlatformerMotor2D> ().groundSpeed = 16;
+		print ("PU-speed init"+ Time.time);
+		yield return new WaitForSeconds (4f);
+		print ("PU-speed init"+ Time.time);
+		gameObject.GetComponentInParent<PlatformerMotor2D> ().groundSpeed = 8;
+
 
 		//empty powerups for this player, he already used it
 		Destroy (activePowerUp);

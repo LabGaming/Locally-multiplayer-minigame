@@ -27,8 +27,9 @@ public class IceBallPowerUp : MonoBehaviour {
 
 	//para cuando ya es lanzado y choca algo
 	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log("ontriggerenter ice");
-		if (other.gameObject.layer == LayerMask.NameToLayer ("Shootable")) {
+		//Debug.Log("iceballPowerUp.proyectile.ontriggerenter ice: "+ other.gameObject.ToString());
+		if (other.gameObject.layer == LayerMask.NameToLayer ("Shootable") ||
+			other.gameObject.layer == LayerMask.NameToLayer ("Scenario")) {
 			myRigidBody.velocity = Vector2.zero; //stop moving this GO
 			Destroy(gameObject);
 			if (other.gameObject.tag == "Player") {

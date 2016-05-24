@@ -12,15 +12,18 @@ public class FireBullet : MonoBehaviour {
 
 	void Awake() {
 		nextBulletTime = 0f;
-		playerNumber = gameObject.transform.parent.GetComponent<Platformer2DUserControl>().getPlayerNumber();
+	}
+
+	void Start(){
+		playerNumber = gameObject.transform.parent.GetComponent<PlayerActions>().getPlayerNumber();
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		if (playerNumber == 1 && Input.GetAxisRaw ("Fire1") > 0 && nextBulletTime < Time.time) {
+		if (playerNumber == 1 && Input.GetAxisRaw ("P1Fire2") > 0 && nextBulletTime < Time.time) {
 			nextBulletTime = Time.time + timeBetweenBullets;
-
+			Debug.Log ("firebullet");
 			Instantiator.Instance.PlayPUEffectPlayer1 ();
 			//transform.GetComponentInParent<PlayerActions> ().UsePowerUp ();
 
@@ -35,7 +38,7 @@ public class FireBullet : MonoBehaviour {
 				bulletRB.AddForce (Vector2.right * -speed, ForceMode2D.Impulse);
 			}*/
 		}
-		else if (playerNumber == 2 && Input.GetAxisRaw ("P2-Fire1") > 0 && nextBulletTime < Time.time) {
+		else if (playerNumber == 2 && Input.GetAxisRaw ("P2Fire2") > 0 && nextBulletTime < Time.time) {
 
 			//hacer como arriba (player1)
 			nextBulletTime = Time.time + timeBetweenBullets;

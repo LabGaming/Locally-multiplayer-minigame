@@ -4,6 +4,11 @@ using System.Collections;
 
 public class Button : MonoBehaviour {
 
+	#region public
+	public GameObject settingsScreen;
+
+	#endregion
+
 	public void MainMenuScene(){
 		SceneManager.LoadScene (0);
 	}
@@ -19,4 +24,13 @@ public class Button : MonoBehaviour {
 	public void AdjustSize(){
 		//TODO
 	}
+
+	public void ShowScreen(GameObject screen){
+		if (screen.activeSelf) {
+			screen.SetActive (false);
+		} else {
+			screen.SetActive (true);
+		}
+	}
+
 }

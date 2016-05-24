@@ -8,8 +8,10 @@ public class MysteriousItem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//generates a random powerUp from gameManager's list
-		content = Instantiator.Instance.GenerateRandomItem ();	
+		if (content == null) {
+			//generates a random powerUp from gameManager's list
+			content = Instantiator.Instance.GenerateRandomItem ();	
+		}
 	}
 	
 	void OnCollisionEnter2D(Collision2D other)

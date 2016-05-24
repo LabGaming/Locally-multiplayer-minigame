@@ -13,6 +13,11 @@ public class WaypointController : MonoBehaviour {
 	void Start () {
 		for (int i = 0; i < players.Length ; i++) {
 			Transform transform = PlacePlayerInWaypoint (i, i);
+			transform.gameObject.GetComponent<PlayerActions> ().setPlayerNumber (i+1);
+			Instantiator.Instance.players [i] = transform.gameObject;
+			if (i == 1) {
+				transform.gameObject.GetComponentInChildren<SpriteRenderer> ().color = Color.red;
+			}
 			procamera.AddCameraTarget (transform);
 		}	
 	}

@@ -22,7 +22,8 @@ public class Item : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if (other.gameObject.tag == "Player") {
-			var playerNumber = other.transform.GetComponent<Platformer2DUserControl> ().getPlayerNumber ();
+			//var playerNumber = other.transform.GetComponent<Platformer2DUserControl> ().getPlayerNumber ();
+			var playerNumber = other.transform.GetComponent<PlayerActions> ().getPlayerNumber ();
 			ScorePoints.Instance.CatchItem (playerNumber, points);
 			//other.gameObject.SendMessage ("CatchItem", points);
 			GameObject.Destroy (this.gameObject);
